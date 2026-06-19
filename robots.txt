@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://erkimberd.github.io/zhh5-leyu-com-cn/sitemap.xml
