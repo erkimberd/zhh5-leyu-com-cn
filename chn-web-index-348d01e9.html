@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日常查询 · 竞彩网</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fce4b8 0%, #fcd5a5 40%, #fbc78d 100%);
+      font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1.2rem;
+      line-height: 1.6;
+      color: #2d281c;
+    }
+
+    .page-card {
+      max-width: 860px;
+      width: 100%;
+      background: rgba(255, 252, 245, 0.92);
+      backdrop-filter: blur(2px);
+      border-radius: 48px 48px 36px 36px;
+      box-shadow: 0 20px 40px -10px rgba(120, 70, 20, 0.25),
+                  0 8px 20px rgba(0, 0, 0, 0.05);
+      padding: 2.8rem 2.5rem;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 240, 210, 0.6);
+    }
+
+    @media (max-width: 580px) {
+      .page-card {
+        padding: 2rem 1.2rem;
+        border-radius: 32px;
+      }
+    }
+
+    .tagline {
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: #b47a4e;
+      background: #f8ead7;
+      display: inline-block;
+      padding: 0.25rem 1.2rem;
+      border-radius: 40px;
+      margin-bottom: 1.8rem;
+      font-weight: 500;
+      border: 1px solid #ecdcc6;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 580;
+      color: #382e1c;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+
+    .lead {
+      font-size: 1.15rem;
+      background: #fcf6e9;
+      padding: 1.4rem 1.8rem;
+      border-radius: 28px;
+      margin-bottom: 2rem;
+      border-left: 6px solid #dba67b;
+      color: #3b3020;
+      box-shadow: inset 0 2px 6px rgba(160, 100, 40, 0.04);
+    }
+
+    .lead a {
+      color: #8a5e34;
+      text-decoration: none;
+      font-weight: 570;
+      border-bottom: 2px solid #dbb38b;
+      transition: border 0.2s, color 0.2s;
+    }
+
+    .lead a:hover {
+      border-bottom-color: #7f4f28;
+      color: #5f3f1e;
+    }
+
+    .story-section {
+      margin: 1.8rem 0 2.2rem 0;
+    }
+
+    .story-section p {
+      margin-bottom: 1rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 2rem 0 2.2rem 0;
+    }
+
+    @media (max-width: 530px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+      }
+    }
+
+    .feature-item {
+      background: #faf3e4;
+      border-radius: 24px;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid #efe2ce;
+      transition: background 0.2s;
+    }
+
+    .feature-item:hover {
+      background: #f5e9d3;
+    }
+
+    .feature-item h3 {
+      font-size: 1.1rem;
+      font-weight: 570;
+      color: #4c3a21;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.01em;
+    }
+
+    .feature-item p {
+      font-size: 0.95rem;
+      color: #4d3f2b;
+    }
+
+    .story-sub {
+      background: #faf0dd;
+      border-radius: 40px;
+      padding: 1.6rem 2rem;
+      margin: 1.8rem 0 2rem 0;
+      border: 1px solid #e7d7be;
+    }
+
+    .story-sub p {
+      font-size: 1rem;
+    }
+
+    .story-sub strong {
+      color: #6b4d2b;
+    }
+
+    .faq-mini {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      margin: 1.6rem 0 1.2rem 0;
+      padding: 0.8rem 0;
+      border-top: 2px dotted #dcc6ab;
+      border-bottom: 2px dotted #dcc6ab;
+    }
+
+    .faq-mini div {
+      flex: 1 0 180px;
+    }
+
+    .faq-mini dt {
+      font-weight: 600;
+      color: #554124;
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    .faq-mini dd {
+      font-size: 0.9rem;
+      color: #54452c;
+      margin-bottom: 0.5rem;
+    }
+
+    .gentle-close {
+      font-size: 1rem;
+      padding: 1.4rem 0 0.5rem 0;
+      color: #46402e;
+      border-top: 1px solid #e6d6bd;
+      margin-top: 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+
+    .gentle-close span {
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background: #e5cfb1;
+      color: #3b2b17;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 530;
+      text-decoration: none;
+      border: 1px solid #d4b896;
+      transition: background 0.25s, box-shadow 0.2s;
+      box-shadow: 0 4px 8px -4px rgba(130, 70, 10, 0.12);
+      margin: 0.3rem 0;
+    }
+
+    .btn-link:hover {
+      background: #dbbc95;
+      box-shadow: 0 6px 12px -4px rgba(110, 60, 10, 0.18);
+      border-color: #b9926a;
+    }
+
+    .inline-link {
+      color: #7e5a35;
+      text-decoration: none;
+      border-bottom: 1px solid #cbaa7e;
+      transition: border-color 0.2s;
+    }
+
+    .inline-link:hover {
+      border-bottom-color: #7e4f24;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #ebddca;
+      margin: 1.2rem 0;
+    }
+  </style>
+</head>
+<body>
+<div class="page-card">
+  <span class="tagline">📋 日常翻阅 · 对照延伸</span>
+  <h1>从一次查询开始</h1>
+
+  <div class="lead">
+    <p>有时只是想在晚饭后随手查查之前关注的几场比赛数据，翻翻赔率波动和统计摘要。后来慢慢习惯在<a href="https://chn-web-jcw.com">竞彩网</a>停留一会儿——不是盯着数字，而是像翻一本不断更新的参考手册，对照自己的想法，顺便看看有没有遗漏的细节。</p>
+  </div>
+
+  <div class="story-section">
+    <p>这个网站最吸引人的地方，是它把繁杂的信息整理得有条理，又不让人觉得冷冰冰。每次打开都像走进一间熟悉的小书房，书架上整齐排列着各联赛的即时数据、历史对比和队伍近况。没有弹窗催促你，也没有花哨的倒计时，安安静静地陈列在那里，等你慢慢看。</p>
+    <p>如果你也习惯在分析前先摊开一堆资料对照着看，那大概率会喜欢这里的呈现方式——干净、克制，关键内容一目了然。</p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h3>📊 数据对照</h3>
+      <p>赔率、让球、大小分……多维度并列展示，方便快速交叉比对，不用来回切换页面。</p>
+    </div>
+    <div class="feature-item">
+      <h3>📅 赛程延伸</h3>
+      <p>从一场比赛出发，能看到队伍未来几轮对阵、近期走势，适合做延伸阅读和趋势判断。</p>
+    </div>
+    <div class="feature-item">
+      <h3>📖 简洁叙述</h3>
+      <p>每个比赛条目都配有简短的背景说明或交锋记录，像看一份精炼的赛前笔记。</p>
+    </div>
+    <div class="feature-item">
+      <h3>🔍 日常查询友好</h3>
+      <p>搜索和筛选响应很快，适合随手查一两个队伍，也适合系统性地浏览整个联赛。</p>
+    </div>
+  </div>
+
+  <div class="story-sub">
+    <p>有一回为了查一支英冠球队近五场的射门转化率，我在几个页面间反复横跳。最后还是在<a href="https://chn-web-jcw.com" class="inline-link">竞彩网</a>找到最直观的表格——数据按时间倒序排列，旁边还附带同轮次其他队伍的对比。那种“正好有我要的”的感觉，让人对这类工具产生一种朴素的信任。</p>
+  </div>
+
+  <div class="faq-mini">
+    <div>
+      <dt>每天更新几次？</dt>
+      <dd>核心数据随比赛进程同步更新，赛前首发、实时比分基本无延迟。</dd>
+    </div>
+    <div>
+      <dt>适合新手吗？</dt>
+      <dd>界面没有复杂的术语堆砌，从联赛名称到基础统计都标注得清楚，翻一翻就能上手。</dd>
+    </div>
+    <div>
+      <dt>移动端方便吗？</dt>
+      <dd>响应式布局做得不错，手机浏览器直接打开，卡片和表格会自动适配，缩放不费劲。</dd>
+    </div>
+  </div>
+
+  <div class="gentle-close">
+    <span>慢慢看，别着急</span>
+    <a href="https://chn-web-jcw.com" class="btn-link">竞彩网</a>
+  </div>
+
+  <hr>
+  <p style="font-size: 0.85rem; color: #725e43; margin-top: 0.5rem;">—— 日常查询、对照、延伸，一个安静的参考角落。</p>
+</div>
+</body>
+</html>
