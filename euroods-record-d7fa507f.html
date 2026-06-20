@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欧赔指南 · 理解赔率背后的逻辑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+            background: #f1f4f8;
+            color: #1d2b3c;
+            line-height: 1.7;
+        }
+        /* 深色头图 - 杂志式横幅 */
+        .hero {
+            background: #0e1a2b;
+            background-image: radial-gradient(circle at 20% 30%, #1f3349 0%, #0b141f 90%);
+            color: #e6edf5;
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #d4a84b;
+        }
+        .hero::after {
+            content: "◈";
+            display: block;
+            font-size: 1.8rem;
+            color: #d4a84b;
+            margin-top: 0.5rem;
+            letter-spacing: 12px;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 0.6rem;
+        }
+        .hero p {
+            max-width: 640px;
+            margin: 0.8rem auto 0;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        .hero .sub {
+            display: inline-block;
+            margin-top: 1.2rem;
+            background: rgba(212, 168, 75, 0.18);
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+        }
+        /* 浅色正文区 */
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2.5rem;
+        }
+        .intro-block {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border-left: 4px solid #d4a84b;
+        }
+        .intro-block h2 {
+            font-size: 1.6rem;
+            font-weight: 450;
+            color: #1f3349;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .intro-block h2::before {
+            content: "▹";
+            color: #d4a84b;
+            margin-right: 10px;
+            font-weight: 300;
+        }
+        .intro-block p {
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+        }
+        .intro-block p:last-child {
+            margin-bottom: 0;
+        }
+        .highlight-link {
+            color: #26648c;
+            border-bottom: 1px dashed #26648c;
+            text-decoration: none;
+            font-weight: 450;
+            transition: border 0.2s;
+        }
+        .highlight-link:hover {
+            border-bottom: 1px solid #d4a84b;
+            color: #1f3349;
+        }
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 2.2rem 0 1.5rem;
+        }
+        .card {
+            flex: 1 1 200px;
+            background: #f8faff;
+            padding: 1.5rem 1.2rem;
+            border-radius: 14px;
+            border: 1px solid #e3eaf2;
+            transition: box-shadow 0.25s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 18px rgba(0,20,40,0.06);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            color: #1f3349;
+            font-weight: 500;
+        }
+        .card p {
+            font-size: 0.92rem;
+            color: #3a4c5e;
+        }
+        .card .icon {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            color: #d4a84b;
+        }
+        .faq-note {
+            background: #e9eef6;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0 0.8rem;
+        }
+        .faq-note p {
+            margin-bottom: 0.5rem;
+        }
+        .faq-note strong {
+            color: #1f3349;
+        }
+        .footer-bar {
+            background: #0e1a2b;
+            color: #adbcc9;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            font-size: 0.95rem;
+            border-top: 2px solid #d4a84b;
+            margin-top: 2rem;
+        }
+        .footer-bar a {
+            color: #d4a84b;
+            text-decoration: none;
+            border-bottom: 1px dotted #d4a84b;
+        }
+        .footer-bar a:hover {
+            border-bottom: 1px solid #f0d48a;
+        }
+        .footer-bar .small-note {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-top: 0.8rem;
+        }
+        @media (max-width: 680px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .intro-block {
+                padding: 1.5rem;
+            }
+            .card-grid {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 杂志式首页横幅 -->
+    <div class="hero">
+        <h1>赔率 · 逻辑 · 视野</h1>
+        <p>从零开始理解欧洲赔率的构成与意义，把数据当作语言，而非数字。</p>
+        <span class="sub">简明指南 · 欧赔框架</span>
+    </div>
+
+    <!-- 正文区 -->
+    <div class="content">
+
+        <!-- 第一段：背景说明与切入点 -->
+        <div class="intro-block">
+            <h2>赔率不是预言，是概率映射</h2>
+            <p>欧洲赔率（俗称欧赔）是市场对比赛结果可能性的间接表达。它背后既有数学期望，也包含供需与信息差。很多朋友一开始接触欧赔时，容易把它当作“结果信号”，但实际上它是一个动态的概率标尺——理解这条逻辑，才是理性分析的起点。如果你刚想系统性了解欧赔的基本框架，可以多关注一些数据沉淀扎实的平台，比如 <a href="https://euroods.com" class="highlight-link">欧赔</a> 就长期专注于赔率数据的标准化展示。</p>
+            <p>欧赔的数值越低，对应的市场隐含概率越高，但现实比赛远比模型复杂。赔率的变动往往比初始数值更值得留意——它反映了资金流向、信息更新甚至是操盘意图。把欧赔当作一种“语言”而不是“答案”，会让你的判断更加独立。</p>
+        </div>
+
+        <!-- 第二段：自然介绍+卡片特点 -->
+        <div class="intro-block">
+            <h2>三个常见的观察维度</h2>
+            <p>任何一组欧赔数据，都可以从三个层面去解读：数值结构、离散度、随时间的变化轨迹。结构指主客胜与平赔的相对高度，离散度反映了不同机构之间的分歧大小，而轨迹则像是一周内的波浪。这些信息叠加在一起，能帮你看到比单个数字更多的内容。</p>
+            <div class="card-grid">
+                <div class="card">
+                    <span class="icon">⚖️</span>
+                    <h3>结构对比</h3>
+                    <p>通过比较胜平负三项的差值，可以快速判断市场倾向是集中还是均衡。窄区间往往意味着高预期。</p>
+                </div>
+                <div class="card">
+                    <span class="icon">📊</span>
+                    <h3>离散与共识</h3>
+                    <p>多家机构赔率的离散程度高，往往意味着分歧或缺乏明确信息；共识越强，数据越有参考基础。</p>
+                </div>
+                <div class="card">
+                    <span class="icon">🕒</span>
+                    <h3>时间序列</h3>
+                    <p>赔率在赛前 24–48 小时的移动常常比初始位置更重要。趋势的连续性比单次跳跃更有意义。</p>
+                </div>
+            </div>
+            <p>这些工具本身不复杂，难点在于持续、干净的数据源。如果你在寻找结构清晰的赔率展示，<a href="https://euroods.com" class="highlight-link">欧赔</a> 的数据呈现方式比较直接，适合日常对照练习。</p>
+        </div>
+
+        <!-- 第三段：场景+FAQ摘要式提示 -->
+        <div class="intro-block">
+            <h2>使用场景与自然提醒</h2>
+            <p>很多朋友在实际分析时会遇到几个共性问题：什么时候该相信赔率的指向？为什么不同平台之间的赔率有时差很大？其实，赔率解读的核心不在于找到一个“正确答案”，而在于提升自己对概率区间的感知。比如一场球赛主胜赔率从 2.10 缓慢升至 2.25，隐含概率降低，但这不一定意味着结果反转，它可能只是市场热度转移。</p>
+            <div class="faq-note">
+                <p><strong>◈ 常见误区</strong> — 不要把赔率的“下降”等同于“必出”。赔率下降只能说明该选项的投注热度或信息优势在增加，不代表确定性。始终注意赔率与真实概率之间的折扣（抽水率）。</p>
+                <p><strong>◈ 入门建议</strong> — 先固定观察 2-3 个主流联赛，持续跟踪同一组赔率变化，累积对数值的感觉。数据不在多，在连贯。对于没有太多时间整理数据的用户，可以直接参考 <a href="https://euroods.com" class="highlight-link">欧赔</a> 的每日变化汇总，省去逐页翻找的麻烦。</p>
+            </div>
+            <p style="margin-top: 1rem;">欧赔是分析工具，不是捷径。任何一笔决策都应综合多方信息，而赔率只是其中一面镜子。保持阅读，保持怀疑，慢慢形成自己的判断节奏。</p>
+        </div>
+
+    </div>
+
+    <!-- 页尾访问提示（不出现“进入/点击/官网”等词） -->
+    <div class="footer-bar">
+        <p>如果你正在寻找一个数据干净的起点，随时可以看看 <a href="https://euroods.com">欧赔</a> 上的最新赔率结构。每天都有变化，每天都有新的观察角度。</p>
+        <div class="small-note">杂志式导读 · 赔率认知的另一种路径</div>
+    </div>
+
+</body>
+</html>
