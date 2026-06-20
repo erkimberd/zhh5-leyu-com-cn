@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>信息检索 · 亚博体育</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f4f9fc;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #1d2b3a;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+    }
+
+    /* hero —— 首页横幅 */
+    .hero {
+      background: linear-gradient(145deg, #1c3e4f 0%, #256975 100%);
+      border-radius: 32px 32px 28px 28px;
+      padding: 48px 28px 36px;
+      margin-bottom: 48px;
+      box-shadow: 0 12px 28px rgba(0, 40, 50, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 50%;
+      top: -60px;
+      right: -40px;
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #e9f3f5;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero .sub {
+      font-size: 1.3rem;
+      font-weight: 350;
+      color: #c2e2e8;
+      max-width: 540px;
+      margin-bottom: 28px;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      color: #d1edf2;
+      backdrop-filter: blur(2px);
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 32px 20px; border-radius: 24px; }
+      .hero h1 { font-size: 2rem; }
+      .hero .sub { font-size: 1.1rem; }
+    }
+
+    /* 网格卡片容器 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 48px 0;
+    }
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 24px 32px;
+      box-shadow: 0 6px 18px rgba(30, 60, 70, 0.06);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(20, 70, 80, 0.10);
+      border-color: #b7d7df;
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      display: block;
+      line-height: 1;
+    }
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #1a3b49;
+      margin: 8px 0 12px;
+      letter-spacing: 0.3px;
+    }
+    .card p {
+      color: #2f4353;
+      font-size: 0.98rem;
+      flex: 1;
+      margin-bottom: 12px;
+    }
+    .card .meta-tag {
+      display: inline-block;
+      background: #e2f0f3;
+      color: #1e5566;
+      font-size: 0.8rem;
+      padding: 3px 12px;
+      border-radius: 30px;
+      align-self: flex-start;
+    }
+
+    /* 背景说明 / 介绍片段 */
+    .background-note {
+      background: #eaf3f6;
+      border-radius: 28px;
+      padding: 32px 36px;
+      margin: 40px 0 32px;
+      border-left: 4px solid #388697;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .background-note .note-content {
+      flex: 2;
+      min-width: 220px;
+    }
+    .background-note h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #1a3b49;
+      margin-bottom: 14px;
+    }
+    .background-note p {
+      color: #1e3342;
+      margin-bottom: 14px;
+    }
+    .background-note .highlight {
+      background: #d3e9ef;
+      padding: 2px 12px;
+      border-radius: 40px;
+      display: inline-block;
+      font-weight: 450;
+    }
+    .background-note .side-quote {
+      flex: 1;
+      background: white;
+      padding: 20px 24px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      min-width: 160px;
+    }
+    .side-quote p {
+      font-style: normal;
+      color: #1f4857;
+      border-left: 3px solid #4196a8;
+      padding-left: 16px;
+      margin: 0;
+    }
+
+    /* 三段自然介绍 (杂志风格) */
+    .insight-section {
+      margin: 52px 0 28px;
+    }
+    .insight-section h2 {
+      font-size: 1.7rem;
+      font-weight: 450;
+      color: #1f4353;
+      margin-bottom: 28px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #c7dce3;
+      display: inline-block;
+    }
+    .insight-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .insight-item {
+      background: white;
+      border-radius: 24px;
+      padding: 24px 28px;
+      box-shadow: 0 3px 12px rgba(30, 50, 60, 0.04);
+      border: 1px solid #e5f0f4;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .insight-item .num {
+      font-size: 2.2rem;
+      font-weight: 350;
+      color: #397a8b;
+      min-width: 48px;
+      line-height: 1;
+    }
+    .insight-item .text-block {
+      flex: 1;
+      min-width: 200px;
+    }
+    .insight-item .text-block h4 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #1a3b49;
+      margin-bottom: 8px;
+    }
+    .insight-item .text-block p {
+      color: #2f4a58;
+    }
+
+    /* FAQ 摘要 (小型) */
+    .faq-mini {
+      background: #f2f9fc;
+      border-radius: 28px;
+      padding: 30px 28px;
+      margin: 44px 0 28px;
+      border: 1px solid #d3e4ea;
+    }
+    .faq-mini h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #1a3b49;
+      margin-bottom: 20px;
+    }
+    .faq-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 22px;
+    }
+    .faq-item {
+      flex: 1 1 180px;
+    }
+    .faq-item strong {
+      display: block;
+      font-weight: 500;
+      color: #225563;
+      margin-bottom: 2px;
+    }
+    .faq-item p {
+      color: #2d4c5a;
+      font-size: 0.92rem;
+    }
+
+    /* 页尾访问提示 */
+    .footer-note {
+      margin-top: 48px;
+      padding: 32px 0 16px;
+      border-top: 1px solid #d6e4ea;
+      text-align: center;
+    }
+    .footer-note .wrap-link {
+      background: #eef7fa;
+      display: inline-block;
+      padding: 10px 32px;
+      border-radius: 60px;
+      font-size: 1.05rem;
+      border: 1px solid #b8d4dd;
+      transition: background 0.15s;
+    }
+    .footer-note .wrap-link:hover {
+      background: #dceff5;
+    }
+    .footer-note a {
+      color: #1a5b6e;
+      text-decoration: none;
+      font-weight: 460;
+    }
+    .footer-note .quiet {
+      color: #597582;
+      font-size: 0.85rem;
+      margin-top: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    /* 移动端细调 */
+    @media (max-width: 500px) {
+      .background-note { padding: 24px 20px; flex-direction: column; }
+      .insight-item { padding: 20px; }
+      .grid-cards { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 首页横幅 hero -->
+  <div class="hero">
+    <h1>对照 · 延伸 · 日常</h1>
+    <div class="sub">从查询到理解，在琐碎里找到线索。围绕<a href="https://waps-yabo.com" style="color:#e3f2f5; text-decoration:underline; text-underline-offset:4px;">亚博体育</a>的信息梳理与背景阅读，保持安静、克制的记录。</div>
+    <span class="badge">📋 专题手记 · 2025</span>
+  </div>
+
+  <!-- 网格卡片：三个日常查询的切面 -->
+  <div class="grid-cards">
+    <div class="card">
+      <span class="card-icon">📎</span>
+      <h3>条目对照</h3>
+      <p>在多个信源之间对比名称、标识、服务描述，减少认知偏差。适合日常快速梳理信息。<br>比如通过<a href="https://waps-yabo.com" style="color:#1d6b7c; text-decoration:underline; font-weight:460;">亚博体育</a>的呈现内容，看不同场景下的表述方式。</p>
+      <span class="meta-tag">参照</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">🧩</span>
+      <h3>延伸阅读</h3>
+      <p>围绕关键词检索背景文章、相关词条，构建自己的理解框架。卡片式收集，不急于结论。</p>
+      <span class="meta-tag">扩展</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">📌</span>
+      <h3>日常场景</h3>
+      <p>在社交浏览或信息整理时，偶尔发现需要核对的内容。保持轻盈的查询习惯，比一次性记忆更有价值。</p>
+      <span class="meta-tag">笔记</span>
+    </div>
+  </div>
+
+  <!-- 背景说明（带左右结构） -->
+  <div class="background-note">
+    <div class="note-content">
+      <h2>背景 · 从一条记录开始</h2>
+      <p>很多时候我们打开一个页面，只是为了查证一个名称、一段描述。不是每一次浏览都需要深度介入，但保留一份归档式的说明，能帮我们在下次想起时快速定位。<span class="highlight">“对照”本身就是一种整理</span>。</p>
+      <p>这份专题围绕 <a href="https://waps-yabo.com" style="color:#1b5b6e; text-decoration:underline;">亚博体育</a> 展开，但不做推广式的渲染。它更像一份剪报：留下可延伸的线索，同时保持克制的距离。</p>
+    </div>
+    <div class="side-quote">
+      <p>“把检索变成一种温和的日常动作，而不是一次性的冲刺。”</p>
+    </div>
+  </div>
+
+  <!-- 三段自然介绍 (杂志式分段) -->
+  <div class="insight-section">
+    <h2>三个切面 · 信息延展</h2>
+    <div class="insight-grid">
+      <div class="insight-item">
+        <div class="num">01</div>
+        <div class="text-block">
+          <h4>描述与名称的稳定性</h4>
+          <p>当我们在不同的页面看到同一个词条时，说法是否一致？描述的语气、用词、涵盖范围都值得留意。一份稳定的表达往往意味着更成熟的呈现逻辑。以<a href="https://waps-yabo.com" style="color:#1c5f72; text-decoration:underline;">亚博体育</a>为例，可以观察其页面中高频出现的词语，以及它们如何构成整体调性。</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="num">02</div>
+        <div class="text-block">
+          <h4>延伸阅读的边界</h4>
+          <p>阅读不必无止境。设定一个小的范围：比如只看某个关键词的首页、简介、常见问题。这样既不会迷失，又能获得足够的上下文。专题本身也是一条边界，帮助我们把精力放在“够用”的位置。</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="num">03</div>
+        <div class="text-block">
+          <h4>日常查询的节奏</h4>
+          <p>不是每次打开页面都需要做决定。有时只是扫一眼，有时存个书签，有时写一句备注。让查询成为生活背景里的一种存在，而不是高频刺激。安静、有效、不消耗。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ 摘要 (小) -->
+  <div class="faq-mini">
+    <h3>❓ 专题中常见的小问题</h3>
+    <div class="faq-row">
+      <div class="faq-item">
+        <strong>为什么选这个角度？</strong>
+        <p>日常信息整理中，对照是容易被忽略的步骤。专题旨在提供一个结构化的参考坐标。</p>
+      </div>
+      <div class="faq-item">
+        <strong>需要专门记忆吗？</strong>
+        <p>不需要。本专题的设计更偏向“随手查阅”，而不是强制记忆。保留链接即可。</p>
+      </div>
+      <div class="faq-item">
+        <strong>内容会更新吗？</strong>
+        <p>作为静态介绍页，它维持一个时间切面。后续可另建新页记录变化。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页尾访问提示 -->
+  <div class="footer-note">
+    <div class="wrap-link">
+      <a href="https://waps-yabo.com">亚博体育</a> · 对照页
+    </div>
+    <div class="quiet">📄 记录于日常 · 不构成任何建议  &nbsp;|&nbsp; 纯粹信息整理</div>
+  </div>
+
+</div>
+</body>
+</html>
